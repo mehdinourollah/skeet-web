@@ -1,0 +1,40 @@
+{
+  "app": {
+    "name": "skeet-web",
+    "projectId": "skeet-web",
+    "template": "Next.js (React)",
+    "region": "europe-west4",
+    "appDomain": "your-app-url.com",
+    "functionsDomain": "functions.your-app-url.com"
+  },
+  "cloudArmor": [
+    {
+      "securityPolicyName": "skeet-skeet-web-armor",
+      "rules": [
+        {
+          "priority": "10",
+          "description": "Allow Your Home IP addresses",
+          "options": {
+            "src-ip-ranges": "83.135.187.221",
+            "action": "allow"
+          }
+        },
+        {
+          "priority": "300",
+          "description": "Defense from NodeJS attack",
+          "options": {
+            "action": "deny-403",
+            "expression": "evaluatePreconfiguredExpr('nodejs-v33-stable')"
+          }
+        },
+        {
+          "priority": "2147483647",
+          "description": "Deny All IP addresses",
+          "options": {
+            "action": "deny-403"
+          }
+        }
+      ]
+    }
+  ]
+}  
